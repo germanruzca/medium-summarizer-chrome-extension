@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Medium Summarizer AI",
+  "version": "1.0.0",
+  "description": "Summarize any Medium article instantly with Claude AI",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.medium.com/*",
+    "https://archive.ph/*",
+    "https://api.anthropic.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.medium.com/*",
+        "https://medium.com/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+extension.zip
+*.env
+*.env.*
+.env.local
+*.pem
+*.key
+*.p12

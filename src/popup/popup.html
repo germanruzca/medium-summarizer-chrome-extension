@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Medium Summarizer AI</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">M</div>
+    <div>
+      <div class="header-title">Medium Summarizer AI</div>
+      <div class="header-subtitle">Powered by Claude</div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="summarize">Summarize</button>
+    <button class="tab-btn" data-tab="history">History</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+  </div>
+
+  <!-- ── Summarize Tab ── -->
+  <div id="tab-summarize" class="tab-panel active">
+
+    <!-- Not a Medium article -->
+    <div id="not-medium" class="not-medium hidden">
+      <div class="icon">📄</div>
+      <div>Open a Medium article to get started</div>
+      <div style="margin-top:4px;font-size:11px;">Navigate to medium.com and open any article</div>
+    </div>
+
+    <!-- Article detected -->
+    <div id="article-card" class="article-card hidden">
+      <div class="article-icon">📰</div>
+      <div class="article-info">
+        <div class="article-label">Detected article</div>
+        <div id="article-title" class="article-title">Loading...</div>
+      </div>
+    </div>
+
+    <!-- Summarize button -->
+    <button id="summarize-btn" class="btn btn-primary hidden" disabled>
+      <span>✨</span> Summarize Article
+    </button>
+
+    <!-- Status row -->
+    <div id="status-row" class="status-row hidden">
+      <div class="spinner"></div>
+      <span id="status-text">Fetching article...</span>
+    </div>
+
+    <!-- Error box -->
+    <div id="error-box" class="error-box hidden">
+      <span class="icon">⚠️</span>
+      <div>
+        <div id="error-text">Something went wrong.</div>
+        <button id="retry-btn" class="btn btn-ghost mt-8">Retry</button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div id="result-container" class="hidden">
+      <div class="result-meta">
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span id="proxy-badge" class="proxy-badge hidden">✓ Fetched via —</span>
+          <span id="cost-badge" class="result-badge">💰 ~$0.000</span>
+          <span id="time-badge" class="result-badge">🕐 —</span>
+        </div>
+        <div class="result-actions">
+          <button id="copy-btn" class="btn btn-ghost">📋 Copy</button>
+        </div>
+      </div>
+      <div id="result-box" class="result-box"></div>
+    </div>
+
+  </div>
+
+  <!-- ── History Tab ── -->
+  <div id="tab-history" class="tab-panel">
+    <div class="history-header">
+      <span id="history-count" class="history-count">0 summaries</span>
+      <button id="clear-all-btn" class="btn btn-danger">Clear All</button>
+    </div>
+    <div id="history-empty" class="history-empty">
+      <div class="icon">🕰️</div>
+      <div>No summaries yet</div>
+      <div style="margin-top:4px;font-size:11px;">Your last 5 summaries will appear here</div>
+    </div>
+    <div id="history-list" class="history-list hidden"></div>
+  </div>
+
+  <!-- ── Settings Tab ── -->
+  <div id="tab-settings" class="tab-panel">
+    <div class="settings-section">
+      <div class="settings-label">Anthropic API Key</div>
+      <div class="input-wrapper">
+        <input
+          type="password"
+          id="api-key-input"
+          class="input-field"
+          placeholder="sk-ant-api03-..."
+          autocomplete="off"
+        />
+        <button id="toggle-key-visibility" class="toggle-visibility" title="Show/hide key">
+          👁
+        </button>
+      </div>
+      <div class="status-indicator">
+        <span id="key-status-dot" class="dot"></span>
+        <span id="key-status-text">No API key configured</span>
+      </div>
+      <div class="save-feedback" id="save-feedback"></div>
+    </div>
+
+    <div style="display:flex;gap:8px;">
+      <button id="save-key-btn" class="btn btn-primary" style="flex:1;">Save API Key</button>
+      <button id="verify-key-btn" class="btn btn-ghost">Verify</button>
+    </div>
+    <div id="verify-result" class="cost-note mt-8 hidden" style="word-break:break-word;"></div>
+
+    <div class="settings-section mt-12">
+      <div class="settings-label">Resources</div>
+      <a
+        href="https://console.anthropic.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link"
+      >🔑 Get your API key at console.anthropic.com →</a>
+    </div>
+
+    <div class="settings-section mt-12">
+      <div class="settings-label">Estimated cost per summary</div>
+      <div class="cost-note">
+        Using <strong>claude-sonnet-4-6</strong><br/>
+        Input: $3.00 / 1M tokens &nbsp;|&nbsp; Output: $15.00 / 1M tokens<br/>
+        A typical Medium article costs roughly <strong>~$0.003</strong> to summarize.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
